@@ -4,18 +4,30 @@ import { collection, getDocs } from 'firebase/firestore';
 
 import { useState } from "react";
 import { Button, StyleSheet, TextInput, View, Text } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [scores, setScores] = useState('');
  
+    const navegar = useRouter();
+
     const login = async () => {
+
+        if (!email || !password) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
         try {
             const credential = await signInWithEmailAndPassword(auth, email, password)
-            alert(`Usuário logado: ${email}`)
             const token = await credential.user.getIdToken()
-            console.log(token)
+            alert(`Usuário logado: ${email}`)
+            navegar.push({
+                pathname: "/login",
+                params: { token: token }
+            })
         } catch (error: any) {
             alert(`Usuário não logado`)
             console.log(error)
@@ -23,6 +35,12 @@ export default function Home() {
     }
 
     const signUp = async () => {
+
+        if (!email || !password) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
         try {
             const credential = await createUserWithEmailAndPassword(auth, email, password)
             alert(`Usuário Cadastrado: ${email}`)
@@ -44,10 +62,9 @@ export default function Home() {
     return (
         <View style={ styles.container }>
             <TextInput style={ styles.input } placeholder='Digite seu E-mail' onChangeText={(text) => setEmail(text)}/>
-            <TextInput style={ styles.input } placeholder='Digite sua senha' onChangeText={(text) => setPassword(text)}/>
+            <TextInput style={ styles.input } secureTextEntry placeholder='Digite sua senha' onChangeText={(text) => setPassword(text)}/>
             <Button title='Login' onPress={login}/>
             <Button title='Cadastrar' onPress={signUp}/>
-            <Button title='Consultar' onPress={getScore}/>
             <Text>{scores}</Text>
         </View>
     )
