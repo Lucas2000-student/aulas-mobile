@@ -17,9 +17,9 @@ export default function VerifyNotes(){
 
     const {token} = useLocalSearchParams()
 
-    const docCp1Ref = doc(db, 'users', String(token), 'cp01')
-    const docCp2Ref = doc(db, 'users', String(token), 'cp02')
-    const docCp3Ref = doc(db, 'users', String(token), 'cp03')
+    const docCp1Ref = doc(db, 'users', String(token), 'scores', 'cp01')
+    const docCp2Ref = doc(db, 'users', String(token), 'scores', 'cp02')
+    const docCp3Ref = doc(db, 'users', String(token), 'scores', 'cp03')
 
     const fetchScores = async () => {
         const[doc1, doc2, doc3] = await Promise.all([

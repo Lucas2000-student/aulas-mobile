@@ -14,9 +14,9 @@ export default function AddNotes(){
 
     collection
 
-    const docCp1Ref = doc(db, 'users', String(token), 'cp01')
-    const docCp2Ref = doc(db, 'users', String(token), 'cp02')
-    const docCp3Ref = doc(db, 'users', String(token), 'cp03')
+    const docCp1Ref = doc(db, 'users', String(token), 'scores', 'cp01')
+    const docCp2Ref = doc(db, 'users', String(token), 'scores', 'cp02')
+    const docCp3Ref = doc(db, 'users', String(token), 'scores', 'cp03')
 
     const addScore = async () => {
         if(!cp1 || !cp2 || !cp3) { return }
